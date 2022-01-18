@@ -28,12 +28,23 @@
             <th>
                 @Html.DisplayNameFor(model => model.Vin[0].Domeniu.NumeDomeniu)
             </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Vin[0].CategoriiVin)
+            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Vin) {
-        <tr>
+        @foreach (var item in Model.VinD.Vinuri)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.VinID)
+            {
+                selectedRow = "table-success";
+            }
+        <tr class="@selectedRow">
             <td>
                 @Html.DisplayFor(modelItem => item.Nume_Vin)
             </td>
@@ -49,6 +60,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Domeniu.NumeDomeniu)
             </td>
+
+            <td>
+                @{ foreach (var category in item.CategoriiVin)
+                                    {
+                    @category.Categorie.ID @: @category.Categorie.NumeCategorie <br />
+                } }
+            </td>
+
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

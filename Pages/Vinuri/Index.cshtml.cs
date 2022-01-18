@@ -21,11 +21,27 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
 
         public IList<Vin> Vin { get;set; }
 
-        public async Task OnGetAsync()
+        public VinData VinD { get; set; }
+        public int VinID { get; set; }
+        public int CategorieID { get; set; }
+        public async Task OnGetAsync(int? id, int? categorieID)
         {
-            Vin = await _context.Vin
-                .Include(b => b.Domeniu)
-                .ToListAsync();
+            VinD = new VinData();
+
+            VinD.Vinuri = await _context.Vin
+            .Include(b => b.Domeniu)
+            .Include(b => b.CategoriiVin)
+            .ThenInclude(b => b.Categorie)
+            .AsNoTracking()
+            .OrderBy(b => b.Nume_Vin)
+            .ToListAsync();
+            if (id != null)
+            {
+                VinID = id.Value;
+                Vin vin = VinD.Vinuri
+                .Where(i => i.ID == id.Value).Single();
+                VinD.Categorii = vin.CategoriiVin.Select(s => s.Categorie);
+            }
         }
     }
 }

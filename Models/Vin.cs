@@ -10,9 +10,19 @@ namespace proiect_Anca_Simulei.Models
     public class Vin
     {
         public int ID { get; set; }
+
+        [Required, StringLength(150, MinimumLength = 3)]
+
         [Display(Name = "Nume vin")]
         public string Nume_Vin { get; set; }
+
+        [RegularExpression(@"^[A-Z][a-z]+\s[A-Z][a-z]+$", ErrorMessage = "Numele producatorului trebuie sa fie de forma 'Prenume Nume'"),
+            Required, StringLength(50, MinimumLength = 3)]
+
         public string Producator { get; set; }
+
+        [Range(1, 300)]
+
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Pret { get; set; }
 
@@ -23,7 +33,7 @@ namespace proiect_Anca_Simulei.Models
         public int DomeniuID { get; set; }
         public Domeniu Domeniu { get; set; }
 
-        public ICollection<CategorieVin> CategorieVin { get; set; }
+        public ICollection<CategorieVin> CategoriiVin { get; set; }
 
     }
 }

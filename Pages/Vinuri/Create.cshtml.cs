@@ -10,7 +10,7 @@ using proiect_Anca_Simulei.Models;
 
 namespace proiect_Anca_Simulei.Pages.Vinuri
 {
-    public class CreateModel : PageModel
+    public class CreateModel : CategoriiVinPageModel
     {
         private readonly proiect_Anca_Simulei.Data.proiect_Anca_SimuleiContext _context;
 
@@ -22,6 +22,11 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
         public IActionResult OnGet()
         {
             ViewData["DomeniuID"] = new SelectList(_context.Set<Domeniu>(), "ID", "NumeDomeniu");
+
+            var vin = new Vin();
+            vin.CategoriiVin = new List<CategorieVin>();
+            PopulateAssignedCategoryData(_context, vin);
+
             return Page();
         }
 
@@ -30,17 +35,33 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string[] selectedCategories)
         {
-            if (!ModelState.IsValid)
+            var newVin = new Vin();
+            if (selectedCategories != null)
             {
-                return Page();
+                newVin.CategoriiVin = new List<CategorieVin>();
+                foreach (var cat in selectedCategories)
+                {
+                    var catToAdd = new CategorieVin
+                    {
+                        CategorieID = int.Parse(cat)
+                    };
+                    newVin.CategoriiVin.Add(catToAdd);
+                }
             }
-
-            _context.Vin.Add(Vin);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            if (await TryUpdateModelAsync<Vin>(
+            newVin,
+            "Vin",
+            i => i.Nume_Vin, i => i.Producator,
+            i => i.Pret, i => i.DataImbutelierii, i => i.DomeniuID))
+            {
+                _context.Vin.Add(newVin);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            PopulateAssignedCategoryData(_context, newVin);
+            return Page();
         }
     }
 }
