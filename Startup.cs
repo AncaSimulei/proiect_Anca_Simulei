@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using proiect_Anca_Simulei.Data;
 
 namespace proiect_Anca_Simulei
 {
@@ -24,6 +26,9 @@ namespace proiect_Anca_Simulei
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            services.AddDbContext<proiect_Anca_SimuleiContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("proiect_Anca_SimuleiContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
