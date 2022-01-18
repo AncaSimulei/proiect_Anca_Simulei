@@ -17,5 +17,7 @@ namespace proiect_Anca_Simulei.Data
         public DbSet<proiect_Anca_Simulei.Models.Vin> Vin { get; set; }
 
         public DbSet<proiect_Anca_Simulei.Models.Domeniu> Domeniu { get; set; }
+
+        public DbSet<proiect_Anca_Simulei.Models.Categorie> Categorie { get; set; }
     }
 }
