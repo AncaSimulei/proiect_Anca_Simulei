@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using proiect_Anca_Simulei.Data;
 using proiect_Anca_Simulei.Models;
 
-namespace proiect_Anca_Simulei.Pages.Vinuri
+namespace proiect_Anca_Simulei.Pages.Domenii
 {
     public class CreateModel : PageModel
     {
@@ -21,12 +21,11 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
 
         public IActionResult OnGet()
         {
-            ViewData["DomeniuID"] = new SelectList(_context.Set<Domeniu>(), "ID", "NumeDomeniu");
             return Page();
         }
 
         [BindProperty]
-        public Vin Vin { get; set; }
+        public Domeniu Domeniu { get; set; }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
@@ -37,7 +36,7 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
                 return Page();
             }
 
-            _context.Vin.Add(Vin);
+            _context.Domeniu.Add(Domeniu);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

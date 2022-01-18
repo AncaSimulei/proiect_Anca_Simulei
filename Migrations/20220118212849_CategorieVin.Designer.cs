@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using proiect_Anca_Simulei.Data;
 
 namespace proiect_Anca_Simulei.Migrations
 {
     [DbContext(typeof(proiect_Anca_SimuleiContext))]
-    partial class proiect_Anca_SimuleiContextModelSnapshot : ModelSnapshot
+    [Migration("20220118212849_CategorieVin")]
+    partial class CategorieVin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -19,7 +19,11 @@ namespace proiect_Anca_Simulei.Models
         [DataType(DataType.Date)]
         [Display(Name = "Data imbutelierii")]
         public DateTime DataImbutelierii { get; set; }
-        
-    
+
+        public int DomeniuID { get; set; }
+        public Domeniu Domeniu { get; set; }
+
+        public ICollection<CategorieVin> CategorieVin { get; set; }
+
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using proiect_Anca_Simulei.Data;
 using proiect_Anca_Simulei.Models;
 
-namespace proiect_Anca_Simulei.Pages.Vinuri
+namespace proiect_Anca_Simulei.Pages.Domenii
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
         }
 
         [BindProperty]
-        public Vin Vin { get; set; }
+        public Domeniu Domeniu { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,15 +30,12 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
                 return NotFound();
             }
 
-            Vin = await _context.Vin.FirstOrDefaultAsync(m => m.ID == id);
+            Domeniu = await _context.Domeniu.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Vin == null)
+            if (Domeniu == null)
             {
                 return NotFound();
             }
-
-            ViewData["DomeniuID"] = new SelectList(_context.Set<Domeniu>(), "ID", "NumeDomeniu");
-
             return Page();
         }
 
@@ -51,7 +48,7 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
                 return Page();
             }
 
-            _context.Attach(Vin).State = EntityState.Modified;
+            _context.Attach(Domeniu).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +56,7 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!VinExists(Vin.ID))
+                if (!DomeniuExists(Domeniu.ID))
                 {
                     return NotFound();
                 }
@@ -72,9 +69,9 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
             return RedirectToPage("./Index");
         }
 
-        private bool VinExists(int id)
+        private bool DomeniuExists(int id)
         {
-            return _context.Vin.Any(e => e.ID == id);
+            return _context.Domeniu.Any(e => e.ID == id);
         }
     }
 }

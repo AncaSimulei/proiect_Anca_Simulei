@@ -33,6 +33,10 @@
                 <input asp-for="Vin.DataImbutelierii" class="form-control" />
                 <span asp-validation-for="Vin.DataImbutelierii" class="textdanger"></span>
             </div>
+            <label asp-for="Vin.DomeniuID" class="control-label">Nume domeniu</label>
+            <select asp-for="Vin.DomeniuID" class="form-control" asp-items="ViewBag.DomeniuID">
+            </select>
+            <span asp-validation-for="Vin.DomeniuID" class="text-danger"></span>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

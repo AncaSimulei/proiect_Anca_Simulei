@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using proiect_Anca_Simulei.Data;
 using proiect_Anca_Simulei.Models;
 
-namespace proiect_Anca_Simulei.Pages.Vinuri
+namespace proiect_Anca_Simulei.Pages.Domenii
 {
     public class IndexModel : PageModel
     {
@@ -19,13 +19,11 @@ namespace proiect_Anca_Simulei.Pages.Vinuri
             _context = context;
         }
 
-        public IList<Vin> Vin { get;set; }
+        public IList<Domeniu> Domeniu { get;set; }
 
         public async Task OnGetAsync()
         {
-            Vin = await _context.Vin
-                .Include(b => b.Domeniu)
-                .ToListAsync();
+            Domeniu = await _context.Domeniu.ToListAsync();
         }
     }
 }
