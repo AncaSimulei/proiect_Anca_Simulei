@@ -33,6 +33,7 @@ namespace proiect_Anca_Simulei.Models
         public int DomeniuID { get; set; }
         public Domeniu Domeniu { get; set; }
 
+        [Display(Name = "Categorii Vin")]
         public ICollection<CategorieVin> CategoriiVin { get; set; }
 
     }
